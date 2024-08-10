@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="delete-container">
+        <form action="/login/excluir" method="delete" id="delete-form">
+            <h1>Excluir Conta</h1>
+            <p>Para excluir sua conta confirme a senha.</p>
+            <input type="text" name="password" placeholder="Senha" required>
+            <input type="password" name="confirmpass" placeholder="Confirme a senha" required>
+            <button type="submit">Excluir Conta</button>
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById('delete-form').addEventListener('submit', async function (event) {
+            event.preventDefault()
+
+            const password = document.getElementById('password').value;
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                alert("Você precisa estar logado!");
+                return;
+            }
+
+            try {
+                const response = await fetch('/login/excluir', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ password})
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.msg);
+                    window.location.href = '/auth/login'; 
+                } else {
+                    alert(data.msg);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+
+
+        })
+
+
+
+    </script>
+    
+
+</body>
+</html>
