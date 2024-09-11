@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="delete-container">
+        <form action="/login/excluir" method="delete" id="delete-form">
+            <h1>Excluir Conta</h1>
+            <p>Para excluir sua conta confirme a senha.</p>
+            <input type="text" name="password" placeholder="Senha" required>
+            <input type="password" name="confirmpass" placeholder="Confirme a senha" required>
+            <button type="submit">Excluir Conta</button>
+        </form>
+    </div>
+
+    <script>
+    try {
+        const response = await fetch('/auth/login/user', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Redirecionar para a página HTML se o campo `redirectUrl` estiver presente
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            }
+        } else {
+            // Exibir mensagem de erro
+            alert(data.msg);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao tentar fazer login.');
+    }
+
+
+    </script>
+    
+
+</body>
+</html>

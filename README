@@ -1,0 +1,133 @@
+**Autenticação e Gerenciamento de Usuários**:
+
+# Autenticação e Gerenciamento de Usuários
+
+Este projeto implementa um sistema de autenticação e gerenciamento de usuários com cadastro, login, refresh de token, atualização e exclusão de usuários. Utiliza **Node.js**, **Express**, **JWT** (JSON Web Tokens) e **MongoDB** como banco de dados.
+
+## Funcionalidades
+
+- **Cadastro de Usuários**: Registro de novos usuários.
+- **Login**: Autenticação de usuários com JWT.
+- **Refresh Token**: Geração de novo token JWT quando o atual expira.
+- **Consulta de Usuários**: Obtenção de detalhes de usuários por ID.
+- **Atualização de Perfil**: Edição dos dados de usuários autenticados.
+- **Exclusão de Conta**: Remoção de conta de usuário autenticado.
+
+## Tecnologias Utilizadas
+
+- **Node.js**: Plataforma de desenvolvimento do servidor.
+- **Express**: Framework web para Node.js.
+- **MongoDB**: Banco de dados relacional utilizado para armazenar os dados dos usuários.
+- **JWT**: Sistema de autenticação para gerar e validar tokens.
+- **bcrypt**: Para criptografia de senhas.
+- **dotenv**: Gerenciamento de variáveis de ambiente.
+
+## Requisitos
+
+- Node.js 
+- MongoDB 
+
+## Instalação
+
+1. Clone este repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/seu-projeto-autenticacao.git
+   ```
+
+2. Navegue até a pasta do projeto:
+
+   ```bash
+   cd seu-projeto-autenticacao
+   ```
+
+3. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+4. Configure o arquivo `.env` com as suas variáveis de ambiente:
+
+   ```plaintext
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=sua_senha
+   DB_NAME=nome_do_banco_de_dados
+   JWT_SECRET=sua_chave_secreta
+   JWT_EXPIRES_IN=3600  # Tempo de expiração do token em segundos
+   ```
+
+5. Inicie o servidor:
+
+   ```bash
+   npm start
+   ```
+
+O servidor estará rodando em `http://localhost:3000`.
+
+
+## Endpoints da API
+
+| Método | Rota                 | Descrição                                   | Autenticação |
+|--------|----------------------|---------------------------------------------|--------------|
+| POST   | `/auth/register`      | Registra um novo usuário                    | Não          |
+| POST   | `/auth/login`         | Faz login e retorna um token JWT            | Não          |
+| POST   | `/auth/refresh`       | Atualiza o token JWT                        | Não          |
+| GET    | `/user/:id`           | Consulta os dados de um usuário por ID      | Não          |
+| PUT    | `/user/update`        | Atualiza a senha do usuário autenticado    | Sim          |
+| DELETE | `/user/delete`        | Exclui a conta do usuário autenticado solicitando a senha    | Sim          |
+
+### Autenticação JWT
+
+Para rotas protegidas, é necessário enviar o **token JWT** no cabeçalho da requisição:
+
+```plaintext
+Authorization: Bearer <seu_token_jwt>
+```
+
+## Como Usar
+
+### 1. Cadastro de Usuários
+
+Envie uma requisição `POST` para `/auth/register` com o seguinte corpo:
+
+```json
+{
+  "email": "usuario@example.com",
+  "password": "sua_senha"
+}
+```
+
+### 2. Login
+
+Envie uma requisição `POST` para `/auth/login` com o corpo de e-mail e senha. O retorno será um token JWT:
+
+```json
+{
+  "email": "usuario@example.com",
+  "password": "sua_senha"
+}
+```
+
+Resposta:
+```json
+{
+  "token": "seu_token_jwt"
+}
+```
+
+### 3. Atualizar Perfil
+
+Envie uma requisição `PUT` para `/user/update` com o token JWT no cabeçalho e os dados a serem atualizados no corpo:
+
+```json
+{
+  "name": "Novo Nome",
+  "email": "novo_email@example.com"
+}
+```
+
+### 4. Excluir Usuário
+
+Envie uma requisição `DELETE` para `/user/delete` com o token JWT no cabeçalho e a senha para excluir o usuário autenticado.

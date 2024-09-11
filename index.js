@@ -1,9 +1,9 @@
 import express from 'express';
-import Router from './BACK/routes/router.js';
+import Router from './src/routes/router.js';
 import path from 'path';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import db from './BACK/db/connection.js';
+import db from './src/db/connection.js';
 import { fileURLToPath } from 'url';
 const app = express()
 const port = 3000
