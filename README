@@ -73,8 +73,8 @@ O servidor estará rodando em `http://localhost:3000`.
 |--------|----------------------|---------------------------------------------|--------------|
 | POST   | `/auth/register`      | Registra um novo usuário                    | Não          |
 | POST   | `/auth/login`         | Faz login e retorna um token JWT            | Não          |
-| POST   | `/auth/refresh`       | Atualiza o token JWT                        | Não          |
-| GET    | `/user/:id`           | Consulta os dados de um usuário por ID      | Não          |
+| POST   | `/auth/refresh`       | Atualiza o token JWT                        | Sim         |
+| GET    | `/user/:id`           | Consulta os dados de um usuário por ID      | Sim          |
 | PUT    | `/user/update`        | Atualiza a senha do usuário autenticado    | Sim          |
 | DELETE | `/user/delete`        | Exclui a conta do usuário autenticado solicitando a senha    | Sim          |
 
